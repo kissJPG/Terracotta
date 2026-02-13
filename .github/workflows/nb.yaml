@@ -3,19 +3,18 @@ name: Build & Test Terracotta
 on:
   push:
     branches: [ master ]
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Rust environment
+      - name: Setup Rust nightly (supports edition 2024)
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
+          toolchain: nightly  # 或指定具体版本，如 1.85.0+
 
       - name: Check compilation
         run: cargo check
